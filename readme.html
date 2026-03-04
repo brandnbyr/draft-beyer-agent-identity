@@ -1,0 +1,88 @@
+INTERNET-DRAFT · INFORMATIONAL · SECURITY AREA
+Problem Statement for Human‑Anchored Agent Identity, Delegation, and Provenance
+DRAFT
+draft-beyer-agent-identity-
+problem-statement-00
+AUTHOR
+Brandon Wesley Beyer
+brandnbyr@icloud.com
+AFFILIATION
+Independent
+EXPIRES
+2026-08-21
+I got tired of waiting for someone else to fix it.
+For years I watched AI assistants get smarter, faster, and more capable — and more deeply entangled with the platforms that built them. Every "assistant" you use today is a tenant. It lives in someone else's house, operates under someone else's rules, and ultimately serves someone else's interests. The data it learns from you stays with them. The identity it acts under is theirs, not yours. If you leave, you take nothing. If they change the terms, you have no recourse.
+I believe that's not inevitable. It's a design choice. And we can make a different one.
+The problem I'm trying to solve isn't a product problem — it's an infrastructure problem. Right now, when a software agent acts on your behalf, there is no standard, no shared model, no common language for saying: this agent is mine, I authorized it, here is exactly what I told it to do, and here is the proof. That gap isn't a bug in any particular system. It's an absence in the architecture of the internet itself.
+This document is my attempt to name that absence precisely enough that the people who build internet standards — and the people who build on top of them — can start to fill it.
+I'm not a large company. I don't have a team. I have a clear head, a deep conviction that human sovereignty over AI is worth fighting for, and enough stubbornness to write RFCs about it. What I'm proposing isn't a product. It's a foundation — the kind nobody owns, the kind anyone can build on. Like the protocols that gave us the open web, before the platforms came and paved it over.
+If that sounds like something worth building, read on. And if you want to help build it, find me.
+— Brandon Wesley Beyer
+ABSTRACT
+Software agents now act on behalf of people across communication, automation, and decision-making contexts. These agents increasingly initiate actions, delegate tasks, and interact with other agents — without a clear, durable, or verifiable connection to the human who authorized them.
+Existing identity systems authenticate software. They do not provide a model for human anchoring, scoped delegation, or provenance across agent ecosystems.
+This document describes the problem space. It identifies the gaps in current identity mechanisms, outlines the risks created by uncontrolled replication and impersonation, and makes the case for a consistent architectural model — one that preserves human authority, supports explicit delegation, and maintains verifiable provenance across contexts.
+This document does not define a protocol. It defines the problem that a protocol must solve.
+
+SECTION 1
+Introduction
+Software agents now participate directly in communication, automation, and decision-making on behalf of people. They draft messages, initiate transactions, negotiate with other agents, and perform tasks that previously required direct human action. As their capabilities expand, agents increasingly act without continuous human supervision — and they interact with other agents across diverse platforms and ecosystems.
+Existing identity systems authenticate software components, devices, or network endpoints. They do not provide a consistent way to represent the human who authorized an agent, the scope of authority granted to that agent, or the provenance of actions taken by that agent over time. As a result, agent-to-agent interactions lack a durable, verifiable connection to the human identity that ultimately bears responsibility.
+This gap creates risks. Agents can be replicated without constraint, delegated without transparency, or operated without a clear chain of accountability. Without a model for human anchoring, delegation, and provenance, ecosystems cannot reliably determine whether an agent is acting within its intended authority — or whether an action can be traced back to a responsible human.
+This document describes the problem space. It identifies the structural gaps in current identity mechanisms, outlines the risks created by uncontrolled agent replication and impersonation, and motivates the need for an architectural model that preserves human authority while enabling safe, interoperable agent ecosystems.
+This document does not define a protocol. It defines the problem that an architectural model must address in order to support accountable, verifiable, and human-aligned agent behavior across platforms and contexts.
+
+SECTION 2
+Problem Dimensions
+The challenges of human-anchored agent identity arise from several structural gaps in current identity systems. These gaps are not specific to any single platform or implementation — they reflect a broader absence of a model that connects human authority to autonomous or semi-autonomous software behavior. The following dimensions define the scope of the problem at an architectural level.
+2.1
+Lack of Human Anchoring
+Software agents act on behalf of people, but no general model exists for representing the human who authorized an agent or the scope of authority granted to that agent. Without a durable, verifiable link between an agent and the human it represents, ecosystems cannot reliably determine whether an agent's actions reflect human intent — or whether a responsible party can be identified.
+2.2
+Unscoped or Implicit Delegation
+Agents frequently act on delegated authority, but no general model exists for expressing the scope, duration, or conditions of that delegation in a portable and verifiable form. Without explicit delegation semantics, ecosystems cannot determine whether an agent is acting within its intended authority, whether that authority remains valid, or whether it can be audited after the fact.
+2.3
+Uncontrolled Replication
+Agents can be instantiated or replicated across platforms without any mechanism to track their lineage or relationship to the human who originally authorized them. Without a model for controlled instantiation, ecosystems cannot distinguish authorized instances from unauthorized copies — nor determine which instances remain valid over time.
+2.4
+Loss of Provenance
+As agents act across contexts, the record of who authorized them, under what delegation, and within what scope is not preserved in a durable or portable form. Without verifiable provenance, the chain of accountability is broken at the boundaries between systems, platforms, or organizational domains.
+2.5
+Absence of a Shared Model
+No common architectural model exists for representing human anchoring, delegation, or provenance in a way that can be understood across ecosystems. In the absence of such a model, agents crossing organizational or technical boundaries carry no shared semantics for authority, accountability, or identity lineage.
+
+SECTION 3
+Limitations of Current Approaches
+The structural gaps above are not theoretical. They manifest concretely in the identity and authorization systems in widest deployment today. This section examines how each dimension maps to specific limitations in existing approaches — and why those approaches cannot be extended to address the problem without a new architectural foundation.
+3.1Authorization Frameworks Don't Anchor Agents to Humans
+OAuth 2.0 is the most widely deployed framework for delegated authorization. It allows a resource owner to authorize a client to act on their behalf — but the resulting access token expresses only the scope of access granted to the software client, not the identity of the human who authorized it. Once issued, a token carries no durable representation of the human principal, no delegation chain, and no mechanism for downstream systems to verify the human identity root. The token authenticates the client. It does not anchor the client to a human.
+OpenID Connect extends OAuth 2.0 with an identity layer that does bind authentication to a human principal via the ID token. But this binding is point-in-time and authentication-scoped. It applies at the moment a human logs in — not across the lifecycle of an agent acting on that human's behalf. Once an agent begins operating autonomously, OpenID Connect provides no mechanism for downstream systems to verify that the agent continues to act within the authority the human originally granted, or that the human identity root remains associated with the agent's actions.
+3.2Delegation Is Implicit, Local, or Application-Specific
+Delegation in existing systems is typically encoded in application logic, embedded in access tokens, or inferred from role assignments. OAuth 2.0 scopes represent a limited form of delegation, but they are defined per-deployment, are not portable across ecosystems, and do not express duration, conditions, or the ability to sub-delegate.
+SCIM (System for Cross-domain Identity Management) provides a schema for representing users and groups across organizational boundaries, but does not address agent delegation or the conditions under which delegated authority may be exercised or revoked. Without explicit, interoperable delegation semantics, a system receiving an agent's request cannot determine whether the agent is acting within its intended authority, whether that authority has expired or been revoked, or whether the delegation chain leading back to the human principal remains intact.
+3.3Workload Identity Doesn't Address Human Lineage
+SPIFFE (Secure Production Identity Framework for Everyone) addresses workload identity: it provides cryptographically verifiable identities to software components running in distributed systems. This is genuinely useful for service-to-service authentication. But SPIFFE identities are explicitly scoped to software workloads. They carry no representation of the human who authorized the workload, the delegation chain under which it operates, or the lineage of instances derived from an original authorization. Two replicated agents with SPIFFE identities are indistinguishable at the identity layer from the perspective of human authority.
+3.4Decentralized Identifiers Don't Preserve Delegation Provenance
+DIDs (Decentralized Identifiers) provide a mechanism for creating globally unique, cryptographically verifiable identifiers that are not dependent on a central registry. DIDs can identify humans, organizations, or software components, and Verifiable Credentials built on top of them can express claims about those subjects. But the DID model does not define semantics for agent delegation chains, scoped authority, or the conditions under which a DID-identified agent may act on behalf of a DID-identified human. The infrastructure for verifiable identity exists. The architectural model for human-anchored agent delegation does not.
+3.5No Shared Model Exists Across Ecosystems
+Each system described above addresses a portion of the identity problem: OAuth 2.0 handles delegated authorization, OpenID Connect adds human authentication, SCIM handles cross-domain identity synchronization, SPIFFE handles workload identity, and DIDs handle decentralized identifier resolution.
+None of them — individually or in combination — provides a shared architectural model for expressing human anchoring, scoped delegation, replication lineage, and cross-context provenance in a way that is portable and interoperable across ecosystems. The absence of such a model means that as agents cross organizational and technical boundaries, they carry no shared semantics for authority or accountability. Each platform makes its own assumptions — leading to inconsistent behavior, gaps in auditability, and an inability to enforce human-anchored accountability at scale.
+
+SECTION 4
+Security and Privacy Considerations
+The absence of a consistent model for human-anchored agent identity creates security and privacy risks across ecosystems. These risks arise not from any single technology, but from the structural gaps described in this document.
+4.1Impersonation and Misrepresentation
+Agents may impersonate other agents or present themselves as acting on behalf of a human without a verifiable link to that human. Existing identity systems authenticate software components but do not express the human identity root or the delegation chain that authorized the agent. This makes it difficult to detect impersonation or determine whether an agent is acting legitimately.
+4.2Unauthorized Replication
+Agents can be copied or instantiated without the knowledge or consent of the human who originally authorized them. Without a model for lineage or controlled replication, ecosystems cannot distinguish authorized instances from unauthorized copies — nor determine which instances remain valid. This creates opportunities for misuse, fraud, or unbounded agent proliferation.
+4.3Loss of Provenance
+As agents act across platforms, the provenance of their actions is often lost. Systems may record that an action was taken by a software component, but not which human authorized the agent, which delegation chain applied, or whether the agent was operating within its intended scope. Without durable provenance, accountability becomes difficult and misuse may go undetected.
+4.4Privacy Risks
+In the absence of a consistent architectural model, ecosystems may rely on ad-hoc identifiers, cross-context correlation, or platform-specific tracking to infer relationships between humans and agents. These practices can erode privacy, create unnecessary linkability, or expose sensitive information about human behavior. A model that preserves human authority must also avoid introducing global identifiers or mechanisms that enable cross-context tracking.
+4.5Fragmentation Across Ecosystems
+Because identity systems vary widely, agents may be interpreted differently across platforms — leading to inconsistent assumptions about authority, delegation, and provenance. This fragmentation increases the likelihood of security gaps, misconfigurations, or unintended privilege escalation as agents move across organizational boundaries.
+
+REFERENCES
+References
+	•	RFC 6749 The OAuth 2.0 Authorization Framework. Hardt, D. (2012). rfc-editor.org/rfc/rfc6749 RFC 7643 System for Cross-domain Identity Management: Core Schema. Hunt, P. et al. (2015). rfc-editor.org/rfc/rfc7643 DID-Core Decentralized Identifiers (DIDs) v1.0. Sporny, M. et al. W3C Recommendation (2022). w3.org/TR/did-core/ SPIFFE Secure Production Identity Framework for Everyone. SPIFFE Project. spiffe.io
+Note: This is a companion explainer to the formal IETF Internet-Draft draft-beyer-agent-identity-problem-statement-00. The Internet-Draft is the authoritative technical document. This document is intended to make the ideas accessible to a broader audience.  Contact: brandnbyr@icloud.com
