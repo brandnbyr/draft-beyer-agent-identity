@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Problem Statement for Human-Anchored Agent Identity, Delegation, and Provenance</title>
+  <style>
+    :root {
+      --text: #1a1a1a;
+      --muted: #555;
+      --border: #d0d0d0;
+      --bg-header: #f4f4f4;
+      --bg-note: #f9f9f9;
+      --accent: #2c5f8a;
+      --max-width: 760px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text);
+      background: #fff;
+      padding: 2rem 1rem;
+    }
+
+    .page {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    /* Header block */
+    .doc-header {
+      border: 1px solid var(--border);
+      background: var(--bg-header);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2.5rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.82rem;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .doc-header .field { display: flex; gap: 1rem; }
+    .doc-header .label { min-width: 140px; font-weight: bold; color: var(--text); }
+
+    /* Title block */
+    .doc-title {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .doc-title h1 {
+      font-size: 1.3rem;
+      font-weight: bold;
+      line-height: 1.4;
+      margin-bottom: 0.5rem;
+    }
+    .doc-title .series {
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* Abstract */
+    .abstract {
+      border-left: 3px solid var(--accent);
+      background: var(--bg-note);
+      padding: 1rem 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+    .abstract h2 {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .abstract p { margin-bottom: 0.75rem; }
+    .abstract p:last-child { margin-bottom: 0; }
+
+    /* TOC */
+    .toc {
+      border: 1px solid var(--border);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2.5rem;
+      background: var(--bg-header);
+    }
+    .toc h2 {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .toc ol {
+      padding-left: 1.5rem;
+      font-size: 0.9rem;
+    }
+    .toc ol li { margin-bottom: 0.2rem; }
+    .toc a { color: var(--accent); text-decoration: none; }
+    .toc a:hover { text-decoration: underline; }
+    .toc .sub { padding-left: 1.5rem; list-style-type: lower-alpha; }
+
+    /* Sections */
+    section {
+      margin-bottom: 2.5rem;
+    }
+
+    h2.section-title {
+      font-size: 1.05rem;
+      font-weight: bold;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.3rem;
+      margin-bottom: 1rem;
+    }
+
+    h3.subsection-title {
+      font-size: 0.95rem;
+      font-weight: bold;
+      margin: 1.25rem 0 0.6rem;
+      color: var(--text);
+    }
+
+    p { margin-bottom: 0.85rem; }
+    p:last-child { margin-bottom: 0; }
+
+    /* References */
+    .references dl { margin-top: 0.5rem; }
+    .references dt {
+      font-weight: bold;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+    }
+    .references dd {
+      margin-left: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .references dd a { color: var(--accent); }
+
+    /* Footer */
+    .doc-footer {
+      border-top: 1px solid var(--border);
+      margin-top: 3rem;
+      padding-top: 1rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* Section numbers */
+    .section-num { color: var(--muted); margin-right: 0.5rem; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Document Header -->
+  <div class="doc-header">
+    <div class="field"><span class="label">Internet-Draft:</span> draft-beyer-agent-identity-problem-statement-00</div>
+    <div class="field"><span class="label">Intended Status:</span> Informational</div>
+    <div class="field"><span class="label">Expires:</span> August 21, 2026</div>
+    <div class="field"><span class="label">Author:</span> Brandon Wesley Beyer (Independent)</div>
+    <div class="field"><span class="label">Contact:</span> brandnbyr@icloud.com</div>
+    <div class="field"><span class="label">Submission:</span> Individual</div>
+    <div class="field"><span class="label">Area:</span> Security</div>
+    <div class="field"><span class="label">Date:</span> March 2026</div>
+  </div>
+
+  <!-- Title -->
+  <div class="doc-title">
+    <h1>Problem Statement for Human&#8209;Anchored Agent Identity,<br>Delegation, and Provenance</h1>
+    <div class="series">draft-beyer-agent-identity-problem-statement-00</div>
+  </div>
+
+  <!-- Abstract -->
+  <div class="abstract">
+    <h2>Abstract</h2>
+    <p>Software agents now act on behalf of people across communication, automation, and decision&#8209;making contexts. These agents increasingly initiate actions, delegate tasks, and interact with other agents without a clear, durable, or verifiable connection to the human who authorized them. Existing identity systems authenticate software, but they do not provide a model for human anchoring, scoped delegation, or provenance across agent ecosystems.</p>
+    <p>This document describes the problem space for human&#8209;anchored agent identity. It outlines the gaps in current identity mechanisms, the risks created by uncontrolled replication and impersonation, and the need for a consistent architectural model that preserves human authority, supports explicit delegation, and maintains verifiable provenance across contexts.</p>
+    <p>This document does not define a protocol. It defines the problem that an architectural model must address in order to support safe, accountable, and interoperable agent ecosystems.</p>
+  </div>
+
+  <!-- Table of Contents -->
+  <div class="toc">
+    <h2>Table of Contents</h2>
+    <ol>
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#problem-dimensions">Problem Dimensions</a>
+        <ol class="sub">
+          <li><a href="#dimension-human-anchoring">Lack of Human Anchoring</a></li>
+          <li><a href="#dimension-delegation">Unscoped or Implicit Delegation</a></li>
+          <li><a href="#dimension-replication">Uncontrolled Replication</a></li>
+          <li><a href="#dimension-provenance">Loss of Provenance</a></li>
+          <li><a href="#dimension-interoperability">Fragmented Interoperability</a></li>
+          <li><a href="#dimension-risk">Resulting Risks</a></li>
+        </ol>
+      </li>
+      <li><a href="#current-limitations">Current Limitations</a>
+        <ol class="sub">
+          <li><a href="#limitation-human-binding">Identity Systems Do Not Bind Agents to Humans</a></li>
+          <li><a href="#limitation-delegation">Delegation Is Implicit, Local, or Application-Specific</a></li>
+          <li><a href="#limitation-replication">Replication Lacks Lineage or Control</a></li>
+          <li><a href="#limitation-provenance">Provenance Is Not Preserved Across Contexts</a></li>
+          <li><a href="#limitation-interoperability">Interoperability Is Fragmented</a></li>
+          <li><a href="#limitation-security">Security and Accountability Are Incomplete</a></li>
+        </ol>
+      </li>
+      <li><a href="#security-privacy">Security and Privacy Considerations</a></li>
+      <li><a href="#iana">IANA Considerations</a></li>
+      <li><a href="#references">References</a></li>
+    </ol>
+  </div>
+
+  <!-- Section 1: Introduction -->
+  <section id="introduction">
+    <h2 class="section-title"><span class="section-num">1.</span> Introduction</h2>
+    <p>Software agents now participate directly in communication, automation, and decision&#8209;making on behalf of people. These agents draft messages, initiate transactions, negotiate with other agents, and perform tasks that previously required direct human action. As their capabilities expand, agents increasingly act without continuous human supervision, and they interact with other agents across diverse platforms and ecosystems.</p>
+    <p>Existing identity systems authenticate software components, devices, or network endpoints, but they do not provide a consistent way to represent the human who authorized an agent, the scope of authority granted to that agent, or the provenance of actions taken by that agent over time. As a result, agent&#8209;to&#8209;agent interactions lack a durable, verifiable connection to the human identity that ultimately bears responsibility.</p>
+    <p>This gap creates risks. Agents can be replicated without constraint, delegated without transparency, or operated without a clear chain of accountability. Without a model for human anchoring, delegation, and provenance, ecosystems cannot reliably determine whether an agent is acting within its intended authority or whether an action can be traced back to a responsible human.</p>
+    <p>This document describes the problem space for human&#8209;anchored agent identity. It identifies the structural gaps in current identity mechanisms, outlines the risks created by uncontrolled agent replication and impersonation, and motivates the need for an architectural model that preserves human authority while enabling safe, interoperable agent ecosystems.</p>
+    <p>This document does not define a protocol. It defines the problem that an architectural model must address in order to support accountable, verifiable, and human&#8209;aligned agent behavior across platforms and contexts.</p>
+  </section>
+
+  <!-- Section 2: Problem Dimensions -->
+  <section id="problem-dimensions">
+    <h2 class="section-title"><span class="section-num">2.</span> Problem Dimensions</h2>
+    <p>The challenges of human&#8209;anchored agent identity arise from several structural gaps in current identity systems. These gaps are not limited to any single platform or ecosystem; they reflect a broader absence of a model that connects human authority to autonomous or semi&#8209;autonomous software behavior. The following dimensions illustrate the scope of the problem.</p>
+
+    <h3 class="subsection-title" id="dimension-human-anchoring">2.1. Lack of Human Anchoring</h3>
+    <p>Most identity systems authenticate software components, devices, or network endpoints. They do not provide a durable representation of the human who authorized an agent or the scope of authority granted to that agent. As a result, an agent may act without a verifiable link to a responsible human, and ecosystems cannot reliably determine whether an action reflects human intent.</p>
+
+    <h3 class="subsection-title" id="dimension-delegation">2.2. Unscoped or Implicit Delegation</h3>
+    <p>Agents frequently act on delegated authority, but current systems do not provide a consistent way to express the scope, duration, or conditions of that delegation. Delegation is often implicit, inferred from context, or embedded in application&#8209;specific logic. Without explicit, portable delegation semantics, ecosystems cannot determine whether an agent is acting within its intended authority.</p>
+
+    <h3 class="subsection-title" id="dimension-replication">2.3. Uncontrolled Replication</h3>
+    <p>Agents can be copied, instantiated, or replicated across platforms without any mechanism to track their lineage or relationship to the human who originally authorized them. This creates uncertainty about which instances are legitimate, which are outdated, and which may have been created without consent. Without a model for controlled replication, ecosystems cannot distinguish authorized agents from unauthorized copies.</p>
+
+    <h3 class="subsection-title" id="dimension-provenance">2.4. Loss of Provenance</h3>
+    <p>As agents act across contexts, the provenance of their actions is often lost. Systems may record that an action was taken by a software component, but not which human authorized the agent, which delegation chain applied, or whether the agent was operating within its intended scope. Without durable provenance, accountability becomes difficult or impossible.</p>
+
+    <h3 class="subsection-title" id="dimension-interoperability">2.5. Fragmented Interoperability</h3>
+    <p>Identity systems vary widely across platforms, and no common model exists for representing human anchoring, delegation, or provenance in a way that can be understood across ecosystems. As agents interact across organizational and technical boundaries, the absence of a shared architectural model leads to inconsistent assumptions, incompatible representations, and gaps in accountability.</p>
+
+    <h3 class="subsection-title" id="dimension-risk">2.6. Resulting Risks</h3>
+    <p>These structural gaps create risks for users, platforms, and ecosystems. Agents may act without clear authority, impersonate other agents, or be replicated without consent. Actions may lack verifiable provenance, making it difficult to determine responsibility or detect misuse. Without a model that connects human identity to agent behavior, ecosystems cannot ensure that agents act in ways that reflect human intent.</p>
+  </section>
+
+  <!-- Section 3: Current Limitations -->
+  <section id="current-limitations">
+    <h2 class="section-title"><span class="section-num">3.</span> Current Limitations</h2>
+    <p>The structural gaps described in Section&#160;2 manifest across existing identity systems in ways that limit their ability to support human&#8209;anchored agent ecosystems. These limitations are not the result of flaws in any particular technology; rather, they reflect the absence of a shared model for connecting human authority, agent behavior, and verifiable provenance across contexts.</p>
+
+    <h3 class="subsection-title" id="limitation-human-binding">3.1. Identity Systems Do Not Bind Agents to Humans</h3>
+    <p>Most identity systems authenticate software components, devices, or network endpoints. They do not provide a durable representation of the human who authorized an agent or the scope of authority granted to that agent. As a result, an authenticated agent may act without a verifiable link to a responsible human, and ecosystems cannot determine whether an action reflects human intent.</p>
+
+    <h3 class="subsection-title" id="limitation-delegation">3.2. Delegation Is Implicit, Local, or Application-Specific</h3>
+    <p>Delegation is often encoded in application logic, embedded in access tokens, or inferred from context. These representations are not portable across ecosystems and do not express the scope, duration, or conditions of authority. Without explicit, interoperable delegation semantics, systems cannot determine whether an agent is acting within its intended authority or whether a delegation chain remains valid.</p>
+
+    <h3 class="subsection-title" id="limitation-replication">3.3. Replication Lacks Lineage or Control</h3>
+    <p>Agents can be copied, instantiated, or replicated across platforms without any mechanism to track their lineage or relationship to the human who originally authorized them. Existing identity systems do not distinguish between authorized instances and unauthorized copies, nor do they provide a way to express which instances remain valid over time. This creates uncertainty about which agents should be trusted.</p>
+
+    <h3 class="subsection-title" id="limitation-provenance">3.4. Provenance Is Not Preserved Across Contexts</h3>
+    <p>Systems may record that an action was taken by a software component, but they rarely preserve the delegation chain, the human identity root, or the conditions under which the agent was authorized. As agents move across platforms, this provenance is often lost, making it difficult to determine responsibility or detect misuse.</p>
+
+    <h3 class="subsection-title" id="limitation-interoperability">3.5. Interoperability Is Fragmented</h3>
+    <p>Identity systems vary widely in how they represent software identity, authorization, and delegation. No common architectural model exists for expressing human anchoring, delegation semantics, or provenance in a way that can be understood across ecosystems. As agents interact across organizational and technical boundaries, these inconsistencies lead to gaps in accountability and incompatible assumptions about authority.</p>
+
+    <h3 class="subsection-title" id="limitation-security">3.6. Security and Accountability Are Incomplete</h3>
+    <p>Without a model that connects human identity to agent behavior, ecosystems cannot reliably determine whether an agent is acting within its intended authority, whether a delegation chain remains valid, or whether an action can be traced back to a responsible human. This limits the ability of platforms to detect impersonation, prevent unauthorized replication, or enforce accountability across agent interactions.</p>
+
+    <p>These limitations indicate that existing identity systems are not designed to support the emerging reality of autonomous and semi&#8209;autonomous agents acting on behalf of people. A consistent architectural model is needed to preserve human authority, express delegation, and maintain verifiable provenance across contexts.</p>
+  </section>
+
+  <!-- Section 4: Security and Privacy -->
+  <section id="security-privacy">
+    <h2 class="section-title"><span class="section-num">4.</span> Security and Privacy Considerations</h2>
+    <p>The absence of a consistent model for human&#8209;anchored agent identity creates security and privacy risks across ecosystems. These risks arise not from any single technology, but from the structural gaps described in this document. Without a way to connect agent behavior to human authority, systems cannot reliably determine whether an agent is legitimate, whether it is acting within its intended scope, or whether its actions can be traced to a responsible human.</p>
+
+    <h3 class="subsection-title" id="risk-impersonation">4.1. Impersonation and Misrepresentation</h3>
+    <p>Agents may impersonate other agents or present themselves as acting on behalf of a human without a verifiable link to that human. Existing identity systems authenticate software components but do not express the human identity root or the delegation chain that authorized the agent. This makes it difficult to detect impersonation or determine whether an agent is acting legitimately.</p>
+
+    <h3 class="subsection-title" id="risk-replication">4.2. Unauthorized Replication</h3>
+    <p>Agents can be copied or instantiated without the knowledge or consent of the human who originally authorized them. Without a model for lineage or controlled replication, ecosystems cannot distinguish authorized instances from unauthorized copies, nor can they determine which instances remain valid over time. This creates opportunities for misuse, fraud, or unbounded agent proliferation.</p>
+
+    <h3 class="subsection-title" id="risk-provenance-loss">4.3. Loss of Provenance</h3>
+    <p>As agents act across platforms, the provenance of their actions is often lost. Systems may record that an action was taken by a software component, but not which human authorized the agent, which delegation chain applied, or whether the agent was operating within its intended scope. Without durable provenance, accountability becomes difficult, and misuse may go undetected.</p>
+
+    <h3 class="subsection-title" id="risk-privacy">4.4. Privacy Risks</h3>
+    <p>In the absence of a consistent architectural model, ecosystems may rely on ad&#8209;hoc identifiers, cross&#8209;context correlation, or platform&#8209;specific tracking to infer relationships between humans and agents. These practices can erode privacy, create unnecessary linkability, or expose sensitive information about human behavior. A model that preserves human authority must also avoid introducing global identifiers or mechanisms that enable cross&#8209;context tracking.</p>
+
+    <h3 class="subsection-title" id="risk-fragmentation">4.5. Fragmentation Across Ecosystems</h3>
+    <p>Because identity systems vary widely, agents may be interpreted differently across platforms, leading to inconsistent assumptions about authority, delegation, and provenance. This fragmentation increases the likelihood of security gaps, misconfigurations, or unintended privilege escalation as agents move across organizational boundaries.</p>
+
+    <p>These risks indicate that current identity systems do not provide the security or privacy properties needed for autonomous and semi&#8209;autonomous agents acting on behalf of people. A consistent architectural model is required to preserve human authority, express delegation, and maintain verifiable provenance while avoiding unnecessary linkability or cross&#8209;context correlation.</p>
+  </section>
+
+  <!-- Section 5: IANA -->
+  <section id="iana">
+    <h2 class="section-title"><span class="section-num">5.</span> IANA Considerations</h2>
+    <p>This document has no IANA actions.</p>
+  </section>
+
+  <!-- Section 6: References -->
+  <section id="references" class="references">
+    <h2 class="section-title"><span class="section-num">6.</span> References</h2>
+
+    <h3 class="subsection-title">6.1. Normative References</h3>
+    <dl>
+      <dt>[RFC2119]</dt>
+      <dd>Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels," BCP 14, RFC 2119, March 1997. &lt;<a href="https://www.rfc-editor.org/rfc/rfc2119" target="_blank">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</dd>
+      <dt>[RFC8174]</dt>
+      <dd>Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words," BCP 14, RFC 8174, May 2017. &lt;<a href="https://www.rfc-editor.org/rfc/rfc8174" target="_blank">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</dd>
+    </dl>
+
+    <h3 class="subsection-title">6.2. Informative References</h3>
+    <dl>
+      <dt>[RFC6749]</dt>
+      <dd>Hardt, D., "The OAuth 2.0 Authorization Framework," RFC 6749, October 2012. &lt;<a href="https://www.rfc-editor.org/rfc/rfc6749" target="_blank">https://www.rfc-editor.org/rfc/rfc6749</a>&gt;</dd>
+      <dt>[RFC7643]</dt>
+      <dd>Hunt, P., Ansari, A., Sanchez, M., McCloghrie, K., "System for Cross-domain Identity Management: Core Schema," RFC 7643, September 2015. &lt;<a href="https://www.rfc-editor.org/rfc/rfc7643" target="_blank">https://www.rfc-editor.org/rfc/rfc7643</a>&gt;</dd>
+      <dt>[DID-Core]</dt>
+      <dd>Sporny, M., Longley, D., Allen, C., et al., "Decentralized Identifiers (DIDs) v1.0," W3C Recommendation, July 2022. &lt;<a href="https://www.w3.org/TR/did-core/" target="_blank">https://www.w3.org/TR/did-core/</a>&gt;</dd>
+    </dl>
+  </section>
+
+  <!-- Footer -->
+  <div class="doc-footer">
+    Beyer &nbsp;&bull;&nbsp; draft-beyer-agent-identity-problem-statement-00 &nbsp;&bull;&nbsp; Informational &nbsp;&bull;&nbsp; Expires August 2026
+  </div>
+
+</div>
+</body>
+</html>

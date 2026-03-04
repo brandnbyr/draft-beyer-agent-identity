@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Architecture for Human-Anchored Agent Identity, Delegation, and Provenance</title>
+  <style>
+    :root {
+      --text: #1a1a1a;
+      --muted: #555;
+      --border: #d0d0d0;
+      --bg-header: #f4f4f4;
+      --bg-note: #f9f9f9;
+      --bg-figure: #fafafa;
+      --accent: #2c5f8a;
+      --max-width: 760px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text);
+      background: #fff;
+      padding: 2rem 1rem;
+    }
+
+    .page {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    /* Header block */
+    .doc-header {
+      border: 1px solid var(--border);
+      background: var(--bg-header);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2.5rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.82rem;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+    .doc-header .field { display: flex; gap: 1rem; }
+    .doc-header .label { min-width: 140px; font-weight: bold; color: var(--text); }
+
+    /* Title */
+    .doc-title {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .doc-title h1 {
+      font-size: 1.3rem;
+      font-weight: bold;
+      line-height: 1.4;
+      margin-bottom: 0.5rem;
+    }
+    .doc-title .series {
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* Abstract */
+    .abstract {
+      border-left: 3px solid var(--accent);
+      background: var(--bg-note);
+      padding: 1rem 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+    .abstract h2 {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .abstract p { margin-bottom: 0.75rem; }
+    .abstract p:last-child { margin-bottom: 0; }
+
+    /* TOC */
+    .toc {
+      border: 1px solid var(--border);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2.5rem;
+      background: var(--bg-header);
+    }
+    .toc h2 {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .toc ol { padding-left: 1.5rem; font-size: 0.9rem; }
+    .toc ol li { margin-bottom: 0.2rem; }
+    .toc a { color: var(--accent); text-decoration: none; }
+    .toc a:hover { text-decoration: underline; }
+    .toc .sub { padding-left: 1.5rem; list-style-type: lower-alpha; }
+
+    /* Sections */
+    section { margin-bottom: 2.5rem; }
+
+    h2.section-title {
+      font-size: 1.05rem;
+      font-weight: bold;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.3rem;
+      margin-bottom: 1rem;
+    }
+    h3.subsection-title {
+      font-size: 0.95rem;
+      font-weight: bold;
+      margin: 1.25rem 0 0.6rem;
+      color: var(--text);
+    }
+    h4.subsubsection-title {
+      font-size: 0.9rem;
+      font-weight: bold;
+      font-style: italic;
+      margin: 1rem 0 0.5rem;
+      color: var(--muted);
+    }
+
+    p { margin-bottom: 0.85rem; }
+    p:last-child { margin-bottom: 0; }
+
+    /* Figures */
+    figure {
+      margin: 1.25rem 0;
+      border: 1px solid var(--border);
+      background: var(--bg-figure);
+    }
+    figure pre {
+      font-family: 'Courier New', monospace;
+      font-size: 0.78rem;
+      line-height: 1.5;
+      padding: 1rem 1.25rem;
+      overflow-x: auto;
+      white-space: pre;
+    }
+    figcaption {
+      border-top: 1px solid var(--border);
+      padding: 0.4rem 1.25rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-style: italic;
+      text-align: center;
+    }
+
+    /* Lists */
+    ul, ol {
+      padding-left: 1.75rem;
+      margin-bottom: 0.85rem;
+    }
+    li { margin-bottom: 0.3rem; }
+    li:last-child { margin-bottom: 0; }
+
+    /* References */
+    .references dl { margin-top: 0.5rem; }
+    .references dt {
+      font-weight: bold;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+    }
+    .references dd {
+      margin-left: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .references dd a { color: var(--accent); }
+
+    /* Appendix */
+    .appendix-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.25rem;
+    }
+
+    /* Footer */
+    .doc-footer {
+      border-top: 1px solid var(--border);
+      margin-top: 3rem;
+      padding-top: 1rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .section-num { color: var(--muted); margin-right: 0.5rem; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Document Header -->
+  <div class="doc-header">
+    <div class="field"><span class="label">Internet-Draft:</span> draft-beyer-agent-identity-architecture-00</div>
+    <div class="field"><span class="label">Intended Status:</span> Informational</div>
+    <div class="field"><span class="label">Expires:</span> August 21, 2026</div>
+    <div class="field"><span class="label">Author:</span> Brandon Wesley Beyer (Independent)</div>
+    <div class="field"><span class="label">Contact:</span> brandnbyr@icloud.com</div>
+    <div class="field"><span class="label">Submission:</span> Individual</div>
+    <div class="field"><span class="label">Area:</span> Security</div>
+    <div class="field"><span class="label">Date:</span> March 2026</div>
+  </div>
+
+  <!-- Title -->
+  <div class="doc-title">
+    <h1>Architecture for Human&#8209;Anchored Agent Identity,<br>Delegation, and Provenance</h1>
+    <div class="series">draft-beyer-agent-identity-architecture-00</div>
+  </div>
+
+  <!-- Abstract -->
+  <div class="abstract">
+    <h2>Abstract</h2>
+    <p>Software agents increasingly act on behalf of people across communication, automation, and decision&#8209;making contexts. These agents initiate actions, delegate tasks, and interact with other agents without a consistent model for representing the human who authorized them, the scope of authority they possess, or the provenance of their actions across ecosystems.</p>
+    <p>This document defines an architectural model for human&#8209;anchored agent identity. The model introduces a human identity root, explicit delegation semantics, and a provenance structure that enables ecosystems to determine whether an agent is legitimate, whether it is acting within its intended authority, and how its actions relate to a responsible human.</p>
+    <p>This document does not define a protocol or wire format. It provides an architectural foundation that existing systems may bind to in order to support accountable, interoperable, and human&#8209;aligned agent ecosystems.</p>
+  </div>
+
+  <!-- TOC -->
+  <div class="toc">
+    <h2>Table of Contents</h2>
+    <ol>
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#core-identity-model">Core Identity Model</a>
+        <ol class="sub">
+          <li><a href="#human-identity-root">Human Identity Root</a></li>
+          <li><a href="#agent-identity">Agent Identity</a></li>
+          <li><a href="#delegation-semantics">Delegation Semantics</a></li>
+          <li><a href="#relationships">Relationships Among Core Constructs</a></li>
+        </ol>
+      </li>
+      <li><a href="#delegation-chains">Delegation Chains</a>
+        <ol class="sub">
+          <li><a href="#delegation-structure">Structure of a Delegation Chain</a></li>
+          <li><a href="#delegation-scope">Scope and Constraints</a></li>
+          <li><a href="#delegation-nesting">Nested Delegation</a></li>
+          <li><a href="#delegation-revocation">Revocation</a></li>
+          <li><a href="#delegation-properties">Properties of Delegation Chains</a></li>
+        </ol>
+      </li>
+      <li><a href="#constitutional-contracts">Constitutional Contracts</a></li>
+      <li><a href="#replication-provenance">Replication and Provenance</a></li>
+      <li><a href="#interaction-model">Interaction Model</a></li>
+      <li><a href="#interoperability">Interoperability with Existing Systems</a></li>
+      <li><a href="#security-privacy">Security and Privacy Considerations</a></li>
+      <li><a href="#iana">IANA Considerations</a></li>
+      <li><a href="#references">References</a></li>
+      <li><a href="#appendix-figures">Appendix: Figures</a></li>
+    </ol>
+  </div>
+
+  <!-- Section 1: Introduction -->
+  <section id="introduction">
+    <h2 class="section-title"><span class="section-num">1.</span> Introduction</h2>
+    <p>Software agents increasingly act on behalf of people across communication, automation, and decision&#8209;making contexts. These agents initiate actions, delegate tasks, and interact with other agents without continuous human supervision. As their capabilities expand, ecosystems require a consistent way to determine whether an agent is legitimate, whether it is acting within its intended authority, and how its actions relate to a responsible human.</p>
+    <p>Existing identity systems authenticate software components, devices, or network endpoints, but they do not provide a durable representation of the human who authorized an agent or the delegation chain that governs its behavior. They also do not preserve provenance as agents move across platforms. These gaps limit accountability, create opportunities for impersonation or unauthorized replication, and make it difficult for ecosystems to reason about agent behavior in a consistent way.</p>
+    <p>This document defines an architectural model for human&#8209;anchored agent identity. The model introduces three core elements: a human identity root that represents the responsible human; explicit delegation semantics that express the scope and conditions of authority; and a provenance structure that enables ecosystems to understand how an agent's actions relate to a responsible human across contexts.</p>
+    <p>The architecture is transport&#8209;agnostic and does not define a protocol or wire format. Instead, it provides a conceptual foundation that existing systems may bind to in order to support accountable, interoperable, and human&#8209;aligned agent ecosystems. The model is intended to complement, not replace, existing identity and authorization mechanisms.</p>
+    <p>The goal of this document is to provide a consistent architectural framework that preserves human authority, enables explicit delegation, and maintains verifiable provenance across agent interactions, while avoiding global identifiers or mechanisms that enable cross&#8209;context tracking.</p>
+  </section>
+
+  <!-- Section 2: Core Identity Model -->
+  <section id="core-identity-model">
+    <h2 class="section-title"><span class="section-num">2.</span> Core Identity Model</h2>
+    <p>The architectural model for human&#8209;anchored agent identity is built on three foundational constructs: a human identity root that represents the responsible human; an agent identity that represents a software agent acting on behalf of that human; and explicit delegation semantics that express the scope and conditions under which the agent is authorized to act.</p>
+
+    <figure>
+      <pre>
++------------------------+
+|   Human Identity Root  |
+|   (cryptographic)      |
++-----------+------------+
+            |
+            | issues delegation
+            v
++------------------------+
+|     Agent Identity     |
+|   (cryptographic)      |
++-----------+------------+
+            |
+            | carries
+            v
++------------------------+
+|    Delegation Chain    |
+|  - delegator           |
+|  - delegate            |
+|  - capabilities        |
+|  - validity            |
++-----------+------------+
+            |
+            | governed by
+            v
++------------------------+
+|  Constitutional Contract|
+|  - constraints          |
+|  - scope                |
+|  - revocation rules     |
++------------------------+</pre>
+      <figcaption>Figure 1: Core Identity Model</figcaption>
+    </figure>
+
+    <h3 class="subsection-title" id="human-identity-root">2.1. Human Identity Root</h3>
+    <p>The human identity root represents the human who ultimately bears responsibility for an agent's actions. It is an architectural role, not a global identifier or account. The human identity root provides a stable point of reference for delegation chains and provenance, enabling ecosystems to determine which human authorized an agent without requiring cross&#8209;context tracking or universal identifiers.</p>
+    <p>The architecture does not prescribe how the human identity root is instantiated, stored, or authenticated. It may be bound to existing identity systems, credentials, or verification mechanisms, provided that the binding preserves privacy and avoids unnecessary linkability across contexts.</p>
+
+    <h3 class="subsection-title" id="agent-identity">2.2. Agent Identity</h3>
+    <p>An agent identity represents a software agent acting on behalf of a human. It is distinct from the human identity root and expresses the agent's role, capabilities, and relationship to the human who authorized it. An agent identity may be instantiated multiple times, provided that each instance can be related to the human identity root through a delegation chain.</p>
+    <p>The architecture does not define a credential format, key structure, or transport mechanism for agent identities. Instead, it provides a conceptual model that existing systems may bind to in order to represent agents in a consistent and interoperable way.</p>
+
+    <h3 class="subsection-title" id="delegation-semantics">2.3. Delegation Semantics</h3>
+    <p>Delegation semantics express the scope, duration, and conditions under which an agent is authorized to act on behalf of a human. Delegation is explicit and portable across contexts, enabling ecosystems to determine whether an agent is acting within its intended authority and whether a delegation chain remains valid over time.</p>
+    <p>Delegation semantics do not prescribe a protocol or wire format. They define the architectural properties that a delegation representation must support, including the ability to express scope, constraints, and revocation at the delegation&#8209;chain level rather than at the transport level.</p>
+
+    <h3 class="subsection-title" id="relationships">2.4. Relationships Among Core Constructs</h3>
+    <p>The human identity root, agent identity, and delegation semantics form a coherent model that enables ecosystems to understand how agent behavior relates to human authority. The human identity root anchors the delegation chain; the delegation semantics express the conditions of authority; and the agent identity represents the software agent acting under that authority. Together, these constructs provide a foundation for accountability, interoperability, and provenance across agent ecosystems.</p>
+  </section>
+
+  <!-- Section 3: Delegation Chains -->
+  <section id="delegation-chains">
+    <h2 class="section-title"><span class="section-num">3.</span> Delegation Chains</h2>
+    <p>Delegation chains express how authority flows from a responsible human to one or more software agents. A delegation chain begins at the human identity root and proceeds through one or more delegation steps, each of which grants a specific scope of authority to an agent.</p>
+
+    <h3 class="subsection-title" id="delegation-structure">3.1. Structure of a Delegation Chain</h3>
+    <p>A delegation chain consists of a sequence of delegation steps, each of which expresses a grant of authority from one entity to another. The first step originates at the human identity root, and subsequent steps may delegate authority to additional agents. Each step expresses the scope, duration, and conditions under which the delegated authority is valid.</p>
+
+    <figure>
+      <pre>
+DelegationChain {
+    RootDelegation {
+        delegator: HumanIdentity
+        delegate:  AgentIdentity
+        capabilities: [...]
+        constraints:  [...]
+        signature: HumanSignature
+    }
+
+    OptionalSubDelegation {
+        delegator: AgentIdentity
+        delegate:  SubAgentIdentity
+        capabilities: [...]
+        constraints:  [...]
+        signature: AgentSignature
+    }
+
+    ...
+}</pre>
+      <figcaption>Figure 2: Delegation Chain Structure</figcaption>
+    </figure>
+
+    <p>Delegation steps are explicit and portable across contexts. They do not rely on application&#8209;specific logic or implicit assumptions about authority. This enables ecosystems to interpret delegation chains consistently, even when agents move across organizational or technical boundaries.</p>
+
+    <h3 class="subsection-title" id="delegation-scope">3.2. Scope and Constraints</h3>
+    <p>Each delegation step expresses the scope of authority granted to an agent. Scope may include the types of actions the agent is permitted to perform, the contexts in which those actions are valid, or other constraints that limit the agent's authority. Delegation steps may also express temporal constraints, such as expiration or duration.</p>
+
+    <h3 class="subsection-title" id="delegation-nesting">3.3. Nested Delegation</h3>
+    <p>Delegation chains may include nested delegation, in which an agent that has been granted authority may delegate a subset of that authority to another agent. Nested delegation enables complex agent ecosystems while preserving accountability and traceability to the human identity root. Each nested delegation step must remain within the scope of the authority granted by the preceding step.</p>
+
+    <h3 class="subsection-title" id="delegation-revocation">3.4. Revocation</h3>
+    <p>Revocation applies at the delegation&#8209;chain level rather than at the transport level. A delegation step may be revoked by the entity that issued it, and revocation invalidates all subsequent steps in the chain. This enables ecosystems to determine whether a delegation chain remains valid without relying on transport&#8209;specific mechanisms.</p>
+
+    <h3 class="subsection-title" id="delegation-properties">3.5. Properties of Delegation Chains</h3>
+    <p>Delegation chains provide the following architectural properties:</p>
+    <ul>
+      <li><strong>Explicitness</strong> — Delegation is expressed explicitly rather than inferred from context or application logic.</li>
+      <li><strong>Portability</strong> — Delegation chains can be interpreted across ecosystems without relying on platform&#8209;specific assumptions.</li>
+      <li><strong>Traceability</strong> — Each step in the chain can be related to the human identity root, enabling accountability.</li>
+      <li><strong>Scoping</strong> — Delegation steps express the scope and conditions of authority in a consistent way.</li>
+      <li><strong>Revocability</strong> — Delegation steps can be revoked, and revocation invalidates subsequent steps in the chain.</li>
+    </ul>
+  </section>
+
+  <!-- Section 4: Constitutional Contracts -->
+  <section id="constitutional-contracts">
+    <h2 class="section-title"><span class="section-num">4.</span> Constitutional Contracts</h2>
+    <p>Constitutional contracts define the governance layer that constrains how agents may act on behalf of a human. They express the durable, high&#8209;level conditions under which authority may be delegated, exercised, or revoked. Constitutional contracts do not describe runtime behavior, enforcement mechanisms, or policy languages. Instead, they provide an architectural boundary that ensures agent behavior remains anchored to human intent.</p>
+    <p>A constitutional contract may express structural constraints (rules governing delegation chain shape and depth), authority constraints (limits on agent action types or contexts), revocation constraints (conditions under which authority may be withdrawn), and replication constraints (rules governing when and how agents may be instantiated).</p>
+    <p>Constitutional contracts are portable across platforms and ecosystems. They do not rely on platform&#8209;specific semantics or enforcement mechanisms. This portability enables agents to operate across organizational boundaries while preserving the architectural guarantees of human anchoring, explicit delegation, and durable provenance.</p>
+    <p>Constitutional contracts are not intended to serve as policy engines, protocol elements, cryptographic frameworks, or behavioral safety systems. These non&#8209;goals ensure that constitutional contracts remain an architectural governance layer rather than an operational mechanism.</p>
+  </section>
+
+  <!-- Section 5: Replication and Provenance -->
+  <section id="replication-provenance">
+    <h2 class="section-title"><span class="section-num">5.</span> Replication and Provenance</h2>
+    <p>Replication and provenance describe how agent instances relate to one another and how their actions can be traced back to a responsible human.</p>
+
+    <h3 class="subsection-title">5.1. Replication Model</h3>
+    <p>Agents may be instantiated or replicated across platforms in order to perform tasks, operate in different environments, or maintain continuity of service. The architecture treats replication as an expected property of agent ecosystems, provided that each replicated instance can be related to the human identity root through a valid delegation chain.</p>
+
+    <figure>
+      <pre>
+              (replication)
+     +------------------------------+
+     |                              |
+     v                              v
++------------------+       +------------------+
+|  Agent Instance  |       |  Agent Instance  |
+|      A1          |       |      A2          |
++---------+--------+       +---------+--------+
+          |                          |
+          | carries                  | carries
+          v                          v
+   +------------------+      +------------------+
+   | Delegation Chain |      | Delegation Chain |
+   +------------------+      +------------------+
+          |                          |
+          | identical provenance     | identical provenance</pre>
+      <figcaption>Figure 3: Provenance-Preserving Replication</figcaption>
+    </figure>
+
+    <p>Replication must not create new authority; it may only reproduce authority that has already been granted. Constitutional contracts may limit replication through explicit constraints.</p>
+
+    <h3 class="subsection-title">5.2. Provenance Model</h3>
+    <p>Provenance provides a durable record of how an agent's actions relate to the human identity root and the delegation chain that authorized them. Provenance enables ecosystems to determine: which human authorized the agent; which delegation chain applied at the time of the action; whether the agent was acting within its intended scope; and how the agent instance relates to other instances.</p>
+    <p>Provenance must remain interpretable as agents move across platforms or interact with other agents. The architecture does not prescribe a specific representation for provenance, but requires that it be portable and that it preserve the relationship between agent actions, delegation chains, and the human identity root.</p>
+  </section>
+
+  <!-- Section 6: Interaction Model -->
+  <section id="interaction-model">
+    <h2 class="section-title"><span class="section-num">6.</span> Interaction Model</h2>
+    <p>The interaction model describes how agents, humans, and ecosystems relate to one another within the architectural framework. It defines the conceptual roles involved in agent interactions and the architectural properties that enable ecosystems to interpret those interactions consistently.</p>
+
+    <figure>
+      <pre>
++------------------+      presents      +------------------+
+|      Agent       |------------------->|   Relying Party  |
++------------------+                    +------------------+
+        |                                         ^
+        | identity                                |
+        | delegation chain                        |
+        | constitutional contract                 |
+        v                                         |
++------------------+                             |
+|  Verification    |<----------------------------+
+|  (signatures,    |
+|   constraints,   |
+|   provenance)    |
++------------------+</pre>
+      <figcaption>Figure 4: Agent–Relying Party Interaction Model</figcaption>
+    </figure>
+
+    <p>The interaction model includes three primary roles: the <strong>human identity root</strong> (the responsible human whose authority anchors the delegation chain); the <strong>agent</strong> (a software entity acting under a defined scope of authority); and the <strong>ecosystem</strong> (the environment in which agents operate, including platforms, services, and other agents).</p>
+    <p>Agents may interact directly with other agents. In these interactions, each agent presents its own identity and delegation chain, enabling the receiving agent or ecosystem to determine whether the interaction is legitimate. The architecture does not define a negotiation protocol or trust mechanism for agent&#8209;to&#8209;agent interactions; it defines the requirement that each agent's authority and provenance must be interpretable by other agents and ecosystems.</p>
+  </section>
+
+  <!-- Section 7: Interoperability -->
+  <section id="interoperability">
+    <h2 class="section-title"><span class="section-num">7.</span> Interoperability with Existing Systems</h2>
+    <p>The architectural model is designed to complement existing identity, authorization, and credential systems rather than replace them. Interoperability is achieved by providing a conceptual framework that existing systems may bind to, enabling ecosystems to interpret human authority, delegation, and provenance in a consistent way without requiring changes to underlying protocols or infrastructure.</p>
+
+    <figure>
+      <pre>
+        +--------------------------------------+
+        |   Constitutional Identity Layer      |
+        |  (human anchoring, delegation,       |
+        |   provenance, constraints)           |
+        +------------------+-------------------+
+                           |
+                           | binds to
+                           v
++-----------+   +-----------+   +-----------+   +-----------+
+|   OAuth   |   |   SCIM    |   |   mTLS    |   |   DIDs    |
++-----------+   +-----------+   +-----------+   +-----------+
+       |              |               |               |
+       +--------------+---------------+---------------+
+                      |
+                      v
+               +-------------+
+               | Applications|
+               +-------------+</pre>
+      <figcaption>Figure 5: Positioning Relative to Existing Systems</figcaption>
+    </figure>
+
+    <p>The architecture does not prescribe how identity systems must represent humans or agents. A binding may be implemented through existing account systems, credential formats, or verification processes, provided that the binding preserves the architectural properties of human anchoring, explicit delegation, and durable provenance.</p>
+    <p>Interoperability within this architecture does not require protocol changes, new global identifiers, uniform credential formats, or centralized trust anchors. These non&#8209;goals ensure that the architecture remains compatible with diverse ecosystems and can be adopted incrementally.</p>
+  </section>
+
+  <!-- Section 8: Security and Privacy -->
+  <section id="security-privacy">
+    <h2 class="section-title"><span class="section-num">8.</span> Security and Privacy Considerations</h2>
+    <p>While the model does not define protocols, message formats, or enforcement mechanisms, it raises several security and privacy considerations that ecosystems must evaluate when binding the architecture to existing systems.</p>
+
+    <h3 class="subsection-title">8.1. Human Anchoring</h3>
+    <p>Systems that bind to this architecture must ensure that the binding between the human identity root and the underlying identity system is resistant to impersonation, unauthorized substitution, or misuse. Failure to maintain a secure binding may allow agents to act without legitimate human authorization.</p>
+
+    <h3 class="subsection-title">8.2. Delegation Integrity</h3>
+    <p>If delegation steps can be forged, modified, or replayed across contexts, ecosystems may incorrectly interpret an agent's authority. Systems that implement delegation semantics must ensure that delegation steps cannot be altered without detection and that revocation is interpreted consistently across contexts.</p>
+
+    <h3 class="subsection-title">8.3. Replication Risks</h3>
+    <p>Replication enables agents to operate across platforms, but it also creates opportunities for unauthorized copies or uncontrolled proliferation. Systems that support replication must ensure that replicated instances remain within the scope of the authority granted by the human identity root and that unauthorized replication does not result in expanded or ambiguous authority.</p>
+
+    <h3 class="subsection-title">8.4. Provenance Risks</h3>
+    <p>If provenance is incomplete, inconsistent, or lost across contexts, ecosystems may be unable to determine whether an agent acted legitimately. Systems that bind to this architecture must ensure that provenance remains interpretable without introducing global identifiers or mechanisms that enable cross&#8209;context tracking.</p>
+
+    <h3 class="subsection-title">8.5. Privacy Considerations</h3>
+    <p>The architecture avoids global identifiers and does not require cross&#8209;context correlation of agent or human identities. However, systems that bind to the architecture may inadvertently introduce linkability if they reuse identifiers across contexts or expose delegation chains in ways that reveal sensitive information. Implementations must ensure that privacy&#8209;preserving practices are maintained when representing human identity roots, agent identities, or delegation chains.</p>
+
+    <h3 class="subsection-title">8.6. Ecosystem Fragmentation</h3>
+    <p>Because ecosystems vary widely in their identity and authorization models, inconsistent interpretations of delegation, replication, or provenance may create security gaps. Systems that adopt the architecture must ensure that cross&#8209;context interpretation does not rely on assumptions that are valid only within a single platform or environment.</p>
+  </section>
+
+  <!-- Section 9: IANA -->
+  <section id="iana">
+    <h2 class="section-title"><span class="section-num">9.</span> IANA Considerations</h2>
+    <p>This document has no IANA actions.</p>
+  </section>
+
+  <!-- Section 10: References -->
+  <section id="references" class="references">
+    <h2 class="section-title"><span class="section-num">10.</span> References</h2>
+
+    <h3 class="subsection-title">10.1. Normative References</h3>
+    <dl>
+      <dt>[RFC2119]</dt>
+      <dd>Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels," BCP 14, RFC 2119, March 1997. &lt;<a href="https://www.rfc-editor.org/rfc/rfc2119" target="_blank">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</dd>
+      <dt>[RFC8174]</dt>
+      <dd>Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words," BCP 14, RFC 8174, May 2017. &lt;<a href="https://www.rfc-editor.org/rfc/rfc8174" target="_blank">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</dd>
+    </dl>
+
+    <h3 class="subsection-title">10.2. Informative References</h3>
+    <dl>
+      <dt>[RFC6749]</dt>
+      <dd>Hardt, D., "The OAuth 2.0 Authorization Framework," RFC 6749, October 2012. &lt;<a href="https://www.rfc-editor.org/rfc/rfc6749" target="_blank">https://www.rfc-editor.org/rfc/rfc6749</a>&gt;</dd>
+      <dt>[RFC7643]</dt>
+      <dd>Hunt, P., et al., "System for Cross-domain Identity Management: Core Schema," RFC 7643, September 2015. &lt;<a href="https://www.rfc-editor.org/rfc/rfc7643" target="_blank">https://www.rfc-editor.org/rfc/rfc7643</a>&gt;</dd>
+      <dt>[DID-Core]</dt>
+      <dd>Sporny, M., Longley, D., Allen, C., et al., "Decentralized Identifiers (DIDs) v1.0," W3C Recommendation, July 2022. &lt;<a href="https://www.w3.org/TR/did-core/" target="_blank">https://www.w3.org/TR/did-core/</a>&gt;</dd>
+    </dl>
+  </section>
+
+  <!-- Appendix -->
+  <section id="appendix-figures">
+    <div class="appendix-label">Appendix A</div>
+    <h2 class="section-title">Figures</h2>
+
+    <figure>
+      <pre>
+             +----------------------+
+             |  Human Identity Root |
+             +----------------------+
+                       |
+                       v
+             +----------------------+
+             |  Delegation Chain    |
+             +----------------------+
+                       |
+                       v
+             +----------------------+
+             |    Agent Identity    |
+             +----------------------+
+               /          |         \
+              v           v          v
+       Instance A    Instance B   Instance C
+              \         |         /
+               \        |        /
+                +-------+-------+
+                        |
+                        v
+                 Ecosystem(s)</pre>
+      <figcaption>Figure A-1: Complete Agent Ecosystem Overview</figcaption>
+    </figure>
+
+    <figure>
+      <pre>
+Human Identity Root
+         |
+         v
+  Delegation Step 1
+         |
+         v
+     Agent A
+         |
+         v
+  Delegation Step 2 (subset)
+         |
+         v
+     Agent B
+         |
+         v
+  Delegation Step 3 (subset)
+         |
+         v
+     Agent C
+         |
+         X  &lt;-- Revocation here invalidates all below</pre>
+      <figcaption>Figure A-2: Full Delegation Chain with Nesting and Revocation</figcaption>
+    </figure>
+
+    <figure>
+      <pre>
+              Agent Identity
+                    |
+       +------------+-------------+
+       |                          |
+   Instance A                Instance B
+       |                          |
+  +----+----+                +----+----+
+  |         |                |         |
+Instance A1 A2          Instance B1 B2</pre>
+      <figcaption>Figure A-3: Replication Lineage Tree</figcaption>
+    </figure>
+
+    <figure>
+      <pre>
++----------------------------------------+
+|        Constitutional Contract         |
++----------------------------------------+
+|  Structural Constraints                |
+|  Authority Constraints                 |
+|  Replication Constraints               |
+|  Revocation Constraints                |
++----------------------------------------+
+              |
+              v
+      Governs Delegation</pre>
+      <figcaption>Figure A-4: Constitutional Contract Structure</figcaption>
+    </figure>
+
+    <figure>
+      <pre>
+Context A                Context B                Context C
++--------+               +--------+               +--------+
+| Agent  | --moves-->    | Agent  | --moves-->    | Agent  |
++--------+               +--------+               +--------+
+     |                        |                        |
+     v                        v                        v
+Delegation Chain preserved across all contexts</pre>
+      <figcaption>Figure A-5: Cross-Context Interaction Map</figcaption>
+    </figure>
+
+    <figure>
+      <pre>
+Human Identity Root
+         |
+         v
+  Delegation Chain
+         |
+         v
+     Agent Instance
+         |
+         v
+     Action Event
+         |
+         v
+Provenance Record (who, what, when, why)</pre>
+      <figcaption>Figure A-6: End-to-End Provenance Flow</figcaption>
+    </figure>
+  </section>
+
+  <!-- Footer -->
+  <div class="doc-footer">
+    Beyer &nbsp;&bull;&nbsp; draft-beyer-agent-identity-architecture-00 &nbsp;&bull;&nbsp; Informational &nbsp;&bull;&nbsp; Expires August 2026
+  </div>
+
+</div>
+</body>
+</html>
