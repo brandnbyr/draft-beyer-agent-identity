@@ -21,11 +21,11 @@ Thank you for your interest in this work. Community review and feedback are esse
 
 ## Issue Templates
 
-Three issue templates are available:
+Three issue templates are available when opening a new issue:
 
 - **Text Issue / Editorial Bug** — errors or unclear passages in the draft text
-- **Design Question / Architectural Concern** — questions about architectural decisions
-- **Use Case Submission** — concrete scenarios that should inform the architecture
+- **Technical Comment** — architecture and design feedback
+- **Implementation Feedback** — notes from real-world implementation attempts
 
 ## Discussion Template
 
@@ -58,6 +58,6 @@ This project follows the [IETF Guidelines for Conduct](https://www.rfc-editor.or
 
 This file lives in `community/` for organizational clarity. When setting up the GitHub repository:
 
-- **`CONTRIBUTING.md`** should be copied to the repo root, `docs/`, or `.github/` so GitHub surfaces it automatically on the Issues and Pull Requests pages.
-- **Issue templates** (`ISSUE_TEMPLATE_*.md`) should be placed in `.github/ISSUE_TEMPLATE/` and renamed (e.g., `bug-report.md`, `design-question.md`, `use-case.md`) for GitHub to offer them automatically when contributors open new issues.
+- **\`CONTRIBUTING.md\`** should be copied to the repo root, `docs/`, or `.github/` so GitHub surfaces it automatically on the Issues and Pull Requests pages.
+- **Issue templates** (`ISSUE_TEMPLATE_*.md`) should be placed in `.github/ISSUE_TEMPLATE/` and renamed (e.g., `bug-report.md`, `technical-comment.md`, `implementation-feedback.md`) for GitHub to offer them automatically when contributors open new issues.
 - **Discussion templates** are not natively supported by GitHub Discussions in the same way; link to `DISCUSSION_TEMPLATE_architectural-debate.md` in your pinned discussion post for contributors to copy manually.
