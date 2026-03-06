@@ -165,6 +165,22 @@
     </t>
   </section>
 
+  <section anchor="dimension-constitutional-constraints" title="Absence of Constitutional Constraints">
+    <t>
+      Existing identity systems focus on access control — determining which software
+      component may access which resources — but they do not provide a way to express
+      durable, verifiable constraints on how an agent's authority was constituted or
+      how it may be exercised. There is no standard mechanism for a human to define
+      the governance rules under which an agent may operate, or for a relying party
+      to verify that an agent is acting within those rules. This gap is distinct from
+      delegation scope: scope defines what an agent may do; constitutional constraints
+      define the rules under which authority may be granted, subdivided, transferred,
+      or revoked at all. Without a mechanism for expressing constitutional constraints,
+      there is no structural guarantee that delegated authority reflects the intent
+      of the human who originally authorized it.
+    </t>
+  </section>
+
   <section anchor="dimension-risk" title="Resulting Risks">
     <t>
       These structural gaps create risks for users, platforms, and ecosystems.
@@ -238,6 +254,21 @@
       can be understood across ecosystems. As agents interact across organizational
       and technical boundaries, these inconsistencies lead to gaps in
       accountability and incompatible assumptions about authority.
+    </t>
+  </section>
+
+  <section anchor="limitation-constitutional-constraints" title="No Mechanism for Constitutional Constraints">
+    <t>
+      Existing identity systems do not provide a way to attach durable, verifiable
+      behavioral boundaries to an agent's identity that persist independently of
+      any single authorization request. Access control mechanisms can restrict
+      which resources an agent may access, but they cannot express the governance
+      rules under which the agent's entire delegated authority was constituted —
+      the conditions under which authority may be granted, subdivided, transferred,
+      or revoked, independent of runtime policy. Without a mechanism for
+      constitutional constraints, there is no standard way for a human principal
+      to specify or for a relying party to verify the structural rules governing
+      an agent ecosystem.
     </t>
   </section>
 
@@ -344,7 +375,8 @@
 
   <back>
 
-  <references title="Normative References">
+  <references title="Informative References">
+
     <reference anchor="RFC2119" target="https://www.rfc-editor.org/rfc/rfc2119">
       <front>
         <title>Key words for use in RFCs to Indicate Requirement Levels</title>
@@ -364,9 +396,6 @@
       <seriesInfo name="BCP" value="14"/>
       <seriesInfo name="RFC" value="8174"/>
     </reference>
-  </references>
-
-  <references title="Informative References">
 
     <reference anchor="RFC6749" target="https://www.rfc-editor.org/rfc/rfc6749">
       <front>
