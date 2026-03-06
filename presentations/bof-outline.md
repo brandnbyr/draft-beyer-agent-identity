@@ -2,7 +2,7 @@
 
 **Session title:** Agent Identity: Human Anchoring, Delegation, and Provenance
 **Type:** Birds of a Feather (BOF)
-**Proposed venue:** IETF (area TBD — likely Security or Applications)
+**Proposed venue:** IETF — Security or ART area (possible paths: new BOF in Security or ART, adoption in OAuth WG, or cross-area coordination)
 
 ---
 
