@@ -1032,6 +1032,17 @@
       <seriesInfo name="W3C Recommendation" value="DID-Core"/>
     </reference>
 
+    <reference anchor="VC-Data-Model" target="https://www.w3.org/TR/vc-data-model-2.0/">
+      <front>
+        <title>Verifiable Credentials Data Model v2.0</title>
+        <author initials="M." surname="Sporny" fullname="Manu Sporny"/>
+        <author initials="T." surname="Longley" fullname="Ted Thibodeau Jr"/>
+        <author initials="M." surname="Sabadello" fullname="Markus Sabadello"/>
+        <date year="2024"/>
+      </front>
+      <seriesInfo name="W3C Recommendation" value="VC-Data-Model-2.0"/>
+    </reference>
+
   </references>
 
   <section anchor="appendix-figures" title="Figures">
