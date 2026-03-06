@@ -38,7 +38,19 @@ Without a coherent identity model:
 
 ---
 
-## Slide 4 — The Gap
+## Slide 4 — What Goes Wrong
+
+Without a coherent identity layer, these attacks become practical:
+
+- **Agent laundering** — malicious agent wraps a legitimate one to inherit its authority
+- **Shadow agents** — unauthorized replicas operate with no accountability link
+- **Scope creep** — sub-delegation expands authority beyond what the human granted
+- **Revocation non-propagation** — revoked delegation continues authorizing downstream agents
+- **Cross-platform misrepresentation** — agent claims authority from one platform while acting on another
+
+---
+
+## Slide 5 — The Gap
 
 OAuth, SCIM, PKI, and decentralized identity frameworks provide credentials for software, but none express:
 
@@ -49,7 +61,7 @@ OAuth, SCIM, PKI, and decentralized identity frameworks provide credentials for 
 
 ---
 
-## Slide 5 — Architectural Stance
+## Slide 6 — Architectural Stance
 
 **A constitutional identity layer:**
 
@@ -61,7 +73,7 @@ OAuth, SCIM, PKI, and decentralized identity frameworks provide credentials for 
 
 ---
 
-## Slide 6 — Core Constructs
+## Slide 7 — Core Constructs
 
 ```
 Human Identity Root
@@ -82,7 +94,7 @@ Human Identity Root
 
 ---
 
-## Slide 7 — What This Is Not
+## Slide 8 — What This Is Not
 
 - Not a new protocol
 - Not a replacement for OAuth or SCIM
@@ -92,18 +104,18 @@ Human Identity Root
 
 ---
 
-## Slide 8 — Drafts Available
+## Slide 9 — Drafts Available
 
 | Document | Status |
 |---|---|
 | Problem Statement | Individual submission, Informational |
 | Architecture | Individual submission, Informational |
 
-Both available at: *[repository URL]*
+Both available at: https://github.com/brandnbyr/draft-beyer-agent-identity
 
 ---
 
-## Slide 9 — What We're Asking
+## Slide 10 — What We're Asking
 
 - Community review of the drafts
 - Dispatch guidance
@@ -112,7 +124,7 @@ Both available at: *[repository URL]*
 
 ---
 
-## Slide 10 — Next Steps
+## Slide 11 — Next Steps
 
 - Refine drafts based on community feedback
 - Explore protocol binding requirements (OAuth, SCIM, PKI, DIDs)
