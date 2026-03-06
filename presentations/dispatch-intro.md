@@ -28,7 +28,7 @@ Existing systems (OAuth, SCIM, PKI, DIDs) authenticate software. None express th
 
 ## What We've Produced
 
-**Problem Statement** — Identifies five structural gaps in current identity systems, a threat model, and explicit MUST/SHOULD requirements for any solution.
+**Problem Statement** — Identifies six structural gaps in current identity systems, a threat model, and explicit MUST/SHOULD requirements for any solution.
 
 **Architecture** — Defines four constructs that address those gaps:
 1. Human identity root
@@ -65,7 +65,7 @@ We are open to direction. Possible paths:
 ## Status
 
 - Both drafts: version -00, individual submissions, not yet on datatracker
-- Community review ongoing via GitHub: *[repository URL]*
+- Community review ongoing via GitHub: https://github.com/brandnbyr/draft-beyer-agent-identity
 - No protocol defined — this is architecture and problem statement work
 
 ---
