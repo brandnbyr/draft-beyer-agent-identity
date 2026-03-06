@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Architectural Discussion
+    url: https://github.com/brandnbyr/draft-beyer-agent-identity/discussions/new?category=general
+    about: Open a discussion for broader architectural debates, interoperability questions, or scope clarifications.
