@@ -29,6 +29,13 @@ agent-identity/
 │
 ├── README.md
 │
+├── .github/
+│   └── ISSUE_TEMPLATE/
+│       ├── bug-report.md
+│       ├── technical-comment.md
+│       ├── implementation-feedback.md
+│       └── config.yml
+│
 ├── drafts/
 │   ├── draft-beyer-agent-identity-problem-statement-00.xml
 │   ├── draft-beyer-agent-identity-architecture-00.xml
@@ -40,7 +47,8 @@ agent-identity/
 │   ├── architecture-summary.md
 │   ├── design-principles.md
 │   ├── threat-model.md
-│   └── faq.md
+│   ├── faq.md
+│   └── status.md
 │
 ├── presentations/
 │   ├── bof-outline.md
