@@ -1,23 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <?rfc toc="yes"?>
 <?rfc symrefs="yes"?>
 <?rfc sortrefs="yes"?>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
-
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude"
-     ipr="trust200902"
-     category="info"
-     docName="draft-beyer-agent-identity-problem-statement-00"
-     submissionType="independent"
-     version="3">
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="trust200902" category="info" docName="draft-beyer-agent-identity-problem-statement-00" submissionType="independent" version="3">
 
 <front>
   <title abbrev="Agent Identity Problem Statement">
     Problem Statement for Human‑Anchored Agent Identity, Delegation, and Provenance
   </title>
 
-  <author fullname="Brandon Wesley Beyer">
+  <seriesInfo name="Internet-Draft" value="draft-beyer-agent-identity-problem-statement-00"/><author fullname="Brandon Wesley Beyer">
     <organization>Independent</organization>
     <address>
       <email>brandnbyr@icloud.com</email>
@@ -27,7 +21,7 @@
   <date/>
 
   <area>Security</area>
-  <workgroup>None</workgroup>
+  <workgroup/>
 
   <abstract>
     <t>
@@ -52,11 +46,7 @@
     </t>
   </abstract>
 
-  <seriesInfo name="Internet-Draft"
-              value="draft-beyer-agent-identity-problem-statement-00"/>
-  <seriesInfo name="Intended-Status" value="Informational"/>
-  <seriesInfo name="Expires" value="2026-08-21"/>
-</front>
+  </front>
 
   <middle>
 
@@ -165,22 +155,6 @@
     </t>
   </section>
 
-  <section anchor="dimension-constitutional-constraints" title="Absence of Constitutional Constraints">
-    <t>
-      Existing identity systems focus on access control — determining which software
-      component may access which resources — but they do not provide a way to express
-      durable, verifiable constraints on how an agent's authority was constituted or
-      how it may be exercised. There is no standard mechanism for a human to define
-      the governance rules under which an agent may operate, or for a relying party
-      to verify that an agent is acting within those rules. This gap is distinct from
-      delegation scope: scope defines what an agent may do; constitutional constraints
-      define the rules under which authority may be granted, subdivided, transferred,
-      or revoked at all. Without a mechanism for expressing constitutional constraints,
-      there is no structural guarantee that delegated authority reflects the intent
-      of the human who originally authorized it.
-    </t>
-  </section>
-
   <section anchor="dimension-risk" title="Resulting Risks">
     <t>
       These structural gaps create risks for users, platforms, and ecosystems.
@@ -195,7 +169,7 @@
 
 <section anchor="current-limitations" title="Current Limitations">
   <t>
-    The structural gaps described in Section&#160;3 manifest across existing
+    The structural gaps described in Section 3 manifest across existing
     identity systems in ways that limit their ability to support human‑anchored
     agent ecosystems. These limitations are not the result of flaws in any
     particular technology; rather, they reflect the absence of a shared model for
@@ -203,7 +177,14 @@
     contexts.
   </t>
 
-  <section anchor="limitation-human-binding" title="Identity Systems Do Not Bind Agents to Humans">
+  <t>
+    These limitations indicate that existing identity systems are not designed to
+    support the emerging reality of autonomous and semi‑autonomous agents acting on
+    behalf of people. A consistent architectural model is needed to preserve human
+    authority, express delegation, and maintain verifiable provenance across
+    contexts.
+  </t>
+<section anchor="limitation-human-binding" title="Identity Systems Do Not Bind Agents to Humans">
     <t>
       Most identity systems authenticate software components, devices, or network
       endpoints. They do not provide a durable representation of the human who
@@ -257,21 +238,6 @@
     </t>
   </section>
 
-  <section anchor="limitation-constitutional-constraints" title="No Mechanism for Constitutional Constraints">
-    <t>
-      Existing identity systems do not provide a way to attach durable, verifiable
-      behavioral boundaries to an agent's identity that persist independently of
-      any single authorization request. Access control mechanisms can restrict
-      which resources an agent may access, but they cannot express the governance
-      rules under which the agent's entire delegated authority was constituted —
-      the conditions under which authority may be granted, subdivided, transferred,
-      or revoked, independent of runtime policy. Without a mechanism for
-      constitutional constraints, there is no standard way for a human principal
-      to specify or for a relying party to verify the structural rules governing
-      an agent ecosystem.
-    </t>
-  </section>
-
   <section anchor="limitation-security" title="Security and Accountability Are Incomplete">
     <t>
       Without a model that connects human identity to agent behavior, ecosystems
@@ -283,14 +249,7 @@
     </t>
   </section>
 
-  <t>
-    These limitations indicate that existing identity systems are not designed to
-    support the emerging reality of autonomous and semi‑autonomous agents acting on
-    behalf of people. A consistent architectural model is needed to preserve human
-    authority, express delegation, and maintain verifiable provenance across
-    contexts.
-  </t>
-</section>
+  </section>
 
 <section anchor="security-privacy" title="Security and Privacy Considerations">
   <t>
@@ -303,7 +262,14 @@
     human.
   </t>
 
-  <section anchor="risk-impersonation" title="Impersonation and Misrepresentation">
+  <t>
+    These risks indicate that current identity systems do not provide the security
+    or privacy properties needed for autonomous and semi‑autonomous agents acting
+    on behalf of people. A consistent architectural model is required to preserve
+    human authority, express delegation, and maintain verifiable provenance while
+    avoiding unnecessary linkability or cross‑context correlation.
+  </t>
+<section anchor="risk-impersonation" title="Impersonation and Misrepresentation">
     <t>
       Agents may impersonate other agents or present themselves as acting on behalf
       of a human without a verifiable link to that human. Existing identity systems
@@ -356,14 +322,7 @@
     </t>
   </section>
 
-  <t>
-    These risks indicate that current identity systems do not provide the security
-    or privacy properties needed for autonomous and semi‑autonomous agents acting
-    on behalf of people. A consistent architectural model is required to preserve
-    human authority, express delegation, and maintain verifiable provenance while
-    avoiding unnecessary linkability or cross‑context correlation.
-  </t>
-</section>
+  </section>
 
 <section anchor="iana" title="IANA Considerations">
   <t>
@@ -375,8 +334,7 @@
 
   <back>
 
-  <references title="Informative References">
-
+  <references title="Normative References">
     <reference anchor="RFC2119" target="https://www.rfc-editor.org/rfc/rfc2119">
       <front>
         <title>Key words for use in RFCs to Indicate Requirement Levels</title>
@@ -396,6 +354,9 @@
       <seriesInfo name="BCP" value="14"/>
       <seriesInfo name="RFC" value="8174"/>
     </reference>
+  </references>
+
+  <references title="Informative References">
 
     <reference anchor="RFC6749" target="https://www.rfc-editor.org/rfc/rfc6749">
       <front>
