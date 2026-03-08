@@ -8,12 +8,10 @@ Individual submissions seeking community review and dispatch guidance. Both docu
 
 ## Drafts
 
-| Document | Description |
-|----------|-------------|
-| `draft-beyer-agent-identity-problem-statement-00.xml` | Problem statement: the gaps in existing identity systems that motivate this work |
-| `draft-beyer-agent-identity-architecture-00.xml` | Architecture: human identity root, delegation chains, constitutional contracts, and provenance |
-| `draft-beyer-agent-identity-problem-statement-00.html` | HTML render of problem statement (human-readable, no tooling required) |
-| `draft-beyer-agent-identity-architecture-00.html` | HTML render of architecture draft (human-readable, no tooling required) |
+| Document | Source | Rendered |
+|----------|--------|----------|
+| Problem Statement | [XML](drafts/draft-beyer-agent-identity-problem-statement-00.xml) | [HTML](https://htmlpreview.github.io/?https://github.com/brandnbyr/draft-beyer-agent-identity/blob/main/drafts/draft-beyer-agent-identity-problem-statement-00.html) |
+| Architecture | [XML](drafts/draft-beyer-agent-identity-architecture-00.xml) | [HTML](https://htmlpreview.github.io/?https://github.com/brandnbyr/draft-beyer-agent-identity/blob/main/drafts/draft-beyer-agent-identity-architecture-00.html) |
 
 ## Goals
 
